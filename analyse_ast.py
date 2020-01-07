@@ -3,12 +3,14 @@ import sys
 import numpy
 from scipy import stats
 
+# load bacteria names and types
 name_bact=dict()
 with open('bacteria_def.csv') as bacteria_file:
     reader_b = csv.reader(bacteria_file)
     for row in reader_b:
         name_bact[row[0]] = row[1]
 
+# increment results of AST per species and genus
 ast_sp=dict()
 ast_gen=dict()
 with open("atb_ana.csv") as atb_file:
@@ -18,12 +20,12 @@ with open("atb_ana.csv") as atb_file:
     for x in atb_list:
         atb_dict[x]=atb_list.index(x)
     for row in reader_atb:
-        if row[1] not in ast_gen:
+        if row[1] not in ast_gen: # create a new genus if needed
             new_genus=dict()
             for y in atb_list:
                 new_genus[y] = {"S":0,"R":0,"I":0,"T":0}
                 ast_gen[row[1]] = new_genus
-        if row[2] not in ast_sp:
+        if row[2] not in ast_sp: # create a new species if needed
             new_sp=dict()
             for y in atb_list:
                 new_sp[y] = {"S":0,"R":0,"I":0,"T":0}
@@ -37,7 +39,7 @@ with open("atb_ana.csv") as atb_file:
 
 
 ast_header=[]
-for x in atb_list:
+for x in atb_list: # create headers for each antibiotic
     ast_header.extend([str(x)+" S"])
     ast_header.extend([str(x)+" S (%)"])
     ast_header.extend([str(x)+" I"])
@@ -46,7 +48,7 @@ for x in atb_list:
     ast_header.extend([str(x)+" R (%)"])
     ast_header.extend([str(x)+" total"])
 ast_header.insert(0,"name")
-with open("ast_per_genus.csv", 'w', newline="") as atb_file:
+with open("ast_per_genus.csv", 'w', newline="") as atb_file: # output results for each genus
     writer_atb = csv.writer(atb_file, delimiter=';')
     writer_atb.writerow(ast_header)
     for x in ast_gen:
@@ -63,7 +65,7 @@ with open("ast_per_genus.csv", 'w', newline="") as atb_file:
                     new_ast.extend([0])
             new_ast.extend([num_ast])
         writer_atb.writerow(new_ast)
-with open("ast_per_sp.csv", 'w', newline="") as atb_file:
+with open("ast_per_sp.csv", 'w', newline="") as atb_file: # output results for each species
     writer_atb = csv.writer(atb_file, delimiter=';')
     writer_atb.writerow(ast_header)
     for x in ast_sp:
