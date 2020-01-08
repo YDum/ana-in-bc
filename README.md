@@ -13,6 +13,7 @@ the following modules are needed to run the pipeline:
 - statistics
 - numpy
 - scipy
+- secrets
 
 ## How to use this pipeline
 Each script of the pipeline must be used in the correct order. Here I explain the use of every script.
@@ -30,3 +31,80 @@ Each script of the pipeline must be used in the correct order. Here I explain th
 - extract_ast.py: extract AST results of anaerobic bacteria found in true_bacteriemia.pickle from the files of AST results, and output the results in atb_ana.csv.
 - extract_mic.py: idem, but extract minimimal inhibitory concentrations (MIC), and output the results in mic_ana.csv, mic_per_sp.csv and mic_per_gen.csv
 - analyse_ast.py: analyse the results of AST by diffusion, from atb_ana.csv. The output files are ast_per_sp.csv and ast_per_gen.csv.
+
+## Format of the input data
+"BC_data" was extracted from the DxLab software, iso-8859-1 file with ";" as separator, with the following columns:
+- sampling date (format: DD/MM/YYYY HH:MM:SS)
+- family name (not used in the pipeline)
+- First name (not used in the pipeline)
+- birth name (not used in the pipeline)
+- unique number of the patient (IPP)
+- unique number of the stay (not used in the pipeline)
+- birth date (format DD/MM/YYYY)
+- sex (M/F)
+- unique number of the sample (format 99YYDDDXXXX, where YY is the 2 last digits of the year, DDD the day number in the year, and XXXX an incremented unique number)
+- ward
+- site of the sample (for exemple, direct venopuncture)
+- for each identification in the BC:
+  - a column with the identification
+  - an empty column (unit)
+- then for each identification:
+  - a column with the germ number in the BC (format "Identification N° : X" with X being this number)
+  - an empty column (unit)
+
+"SIR_AST_results_ICM", "SIR_AST_results_CHU", and "SIR_AST_results", files extracted by the SIRweb software, iso-8859-1 files with ";" as separator, with the following columns:
+- Family name (not used in the pipeline)
+- First name (not used in the pipeline)
+- IPP
+- stay number (not used in the pipeline)
+- birth date (not used in the pipeline)
+- unique number of the sample (format NNNNYDDDXXXX, where NNNN are useless digits, Y the last digit of the year, DDD and XXXX the same as in the first file) 
+- germ number
+- identification (the same as in the first file)
+- a boolean (OUI or NON): is a same AST was found by the system for the same identification for this patient in the 30 days in BC)
+- SIR results (S, I or R)
+  - 2 columns for penicillin
+  - 2 columns for cefotaxim
+  - ampicillin
+  - cotrimoxazole
+  - ciprofloxacine
+  - nalidixic acid
+  - amoxicillin ac. clavulanic
+  - piperacillin tazobactam
+  - imipenem
+  - metronidazole
+  - 3 columns for clindamycin
+  - 2 columns for cefoxitin
+  - erythromycin
+  - 2 columns for rifampicin
+  - 2 colums for amoxicilin
+  - piperacillin
+  - tetracylin
+  - vancomycin
+  - moxifloxacin
+  - tigecyclin
+
+"MIC_AST_results", a file extracted by the SIRweb software, iso-8859-1 file with ";" as separator and "," as decimal separator, with the following columns:
+- Family name (not used in the pipeline)
+- First name (not used in the pipeline)
+- IPP
+- stay number (not used in the pipeline)
+- birth date (not used in the pipeline)
+- unique number of the sample (format NNNNYDDDXXXX, where NNNN are useless digits, Y the last digit of the year, DDD and XXXX the same as in the first file) 
+- germ number
+- identification (the same as in the first file)
+- a boolean (OUI or NON): is a same AST was found by the system for the same identification for this patient in the 30 days in BC)
+- MIC results:
+  - amoxicillin ac. clavulanic
+  - piperacillin tazobactam
+  - imipenem
+  - metronidazole
+  - 2 columns for clindamycin
+  - 2 columns for cefoxitin
+  - erythromycin
+  - 2 columns for rifampicin
+  - moxifloxacin
+  - tigecylin
+  - a gibberish column named "VALCMIFINA_ATB277"
+  
+Headers of these files are provided in the folder "headers".
