@@ -3,6 +3,7 @@
 import csv
 import sys
 import pickle
+import secrets
 from datetime import datetime, timedelta
 
 # load ICM services data, since service number needed a separate extraction
@@ -77,8 +78,7 @@ def newhemoc(a): # add a new prelevement to a patient from the dataset
         'date_plvt':datetime.strptime(row[0], "%d/%m/%Y %H:%M:%S"),
         'travail_num':str(row[8])[-8:],
         'service':icmserv(),
-        'germe':germe,
-        'iep_num':row[5]})
+        'germe':germe})
 
 
 # create the dataset
@@ -110,7 +110,20 @@ with open('Somme.csv', newline='', encoding='iso-8859-1') as csvfile:
       newhemoc(new_prlvt['prelevements'])
       dataset.append(new_prlvt)
 
+# anonymise ipp
+anon_ipp = set()
+dataset_anon = []
+for x in dataset:
+    while True:
+        new_ipp = secrets.randbelow(10000)
+        if new_ipp not in anon_ipp:
+            break
+    anon_ipp.add(new_ipp)
+    anon_patient = x
+    anon_patient["ipp_num"] = new_ipp
+    dataset_anon.append(anon_patient)
+
 # Output dataset in pickle
 output_file = open('dataset.pickle', 'wb')
-pickle.dump(dataset, output_file)
+pickle.dump(dataset_anon, output_file)
 output_file.close()
