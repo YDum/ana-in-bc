@@ -23,7 +23,7 @@ with open('true_bacteriemia.pickle', 'rb') as datafile:
     bact = pickle.load(datafile)
 
 list_atb=[]
-with open('mensuel_CHU_22_12_2018.csv', newline='', encoding='iso-8859-1') as chu_atb_file:
+with open('MIC_AST_results.csv', newline='', encoding='iso-8859-1') as chu_atb_file:
     chu_atb_data = csv.reader(chu_atb_file, delimiter=';')
     next(chu_atb_data)
     for row in chu_atb_data:
