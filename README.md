@@ -35,9 +35,9 @@ Each script of the pipeline must be used in the correct order. Here I explain th
 ## Format of the input data
 "BC_data" was extracted from the DxLab software, iso-8859-1 file with ";" as separator, with the following columns:
 - sampling date (format: DD/MM/YYYY HH:MM:SS)
-- family name (not used in the pipeline)
-- First name (not used in the pipeline)
-- birth name (not used in the pipeline)
+- family name (censored)
+- First name (censored)
+- birth name (censored)
 - unique number of the patient (IPP)
 - unique number of the stay (not used in the pipeline)
 - birth date (format DD/MM/YYYY)
@@ -53,11 +53,11 @@ Each script of the pipeline must be used in the correct order. Here I explain th
   - an empty column (unit)
 
 "SIR_AST_results_ICM", "SIR_AST_results_CHU", and "SIR_AST_results", files extracted by the SIRweb software, iso-8859-1 files with ";" as separator, with the following columns:
-- Family name (not used in the pipeline)
-- First name (not used in the pipeline)
+- Family name (censored)
+- First name (censored)
 - IPP
-- stay number (not used in the pipeline)
-- birth date (not used in the pipeline)
+- stay number (censored)
+- birth date (censored)
 - unique number of the sample (format NNNNYDDDXXXX, where NNNN are useless digits, Y the last digit of the year, DDD and XXXX the same as in the first file) 
 - germ number
 - identification (the same as in the first file)
@@ -85,11 +85,11 @@ Each script of the pipeline must be used in the correct order. Here I explain th
   - tigecyclin
 
 "MIC_AST_results", a file extracted by the SIRweb software, iso-8859-1 file with ";" as separator and "," as decimal separator, with the following columns:
-- Family name (not used in the pipeline)
-- First name (not used in the pipeline)
+- Family name (censored)
+- First name (censored)
 - IPP
-- stay number (not used in the pipeline)
-- birth date (not used in the pipeline)
+- stay number (censored)
+- birth date (censored)
 - unique number of the sample (format NNNNYDDDXXXX, where NNNN are useless digits, Y the last digit of the year, DDD and XXXX the same as in the first file) 
 - germ number
 - identification (the same as in the first file)
