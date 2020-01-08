@@ -20,12 +20,12 @@ with open('hemoc_ICM.csv', newline='', encoding='iso-8859-1') as icmfile:
 
 # Load ATB data
 list_atb=[]
-with open('HAA_CHU_ATB.csv', newline='', encoding='iso-8859-1') as chu_atb_file:
+with open('SIR_AST_results_CHU', newline='', encoding='iso-8859-1') as chu_atb_file:
     chu_atb_data = csv.reader(chu_atb_file, delimiter=',')
     next(chu_atb_data)
     for row in chu_atb_data:
         list_atb.append([row[5][-8:],row[7],int(row[6]),row[8][:3]])
-with open('HAA_ICM_ATB.csv', newline='', encoding='iso-8859-1') as icm_atb_file:
+with open('SIR_AST_results_ICM', newline='', encoding='iso-8859-1') as icm_atb_file:
     icm_atb_data = csv.reader(icm_atb_file, delimiter=',')
     next(icm_atb_data)
     next(icm_atb_data)
@@ -83,7 +83,7 @@ def newhemoc(a): # add a new prelevement to a patient from the dataset
 
 # create the dataset
 dataset=list()
-with open('Somme.csv', newline='', encoding='iso-8859-1') as csvfile:
+with open('BC_data', newline='', encoding='iso-8859-1') as csvfile:
   hemocdata = csv.reader(csvfile, delimiter=";")
   for row in hemocdata:
     if row[4] == 'IPP': # skip first line
